@@ -1,0 +1,195 @@
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/css7.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+<style>
+    .navbar .awais h1 {
+        color: white;
+        font-size: 20px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight: 900;
+        letter-spacing: 1px;
+    }
+    
+    body {
+        background-color: white;
+    }
+    
+    .container {
+        padding-top: 100px;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: aqua;">
+        <div class="container-fluid">
+            <a class="navbar-brand awais">
+                <h1>Employe Managment</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fa fa-navicon" id="khang"></i></span>
+          </button>
+            <div class="navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown" id="productDrop" onmouseover="openDropdown()" onmouseout="closeDropdown()">
+                        <a class="nav-link dropdown-toggle" href="{% url 'department_add' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Department
+                        </a>
+                        <ul class="dropdown-menu" id="dropdownMenu" onmouseover="keepDropdownOpen()" onmouseout="closeDropdown()">
+                            <li><a class="dropdown-item" href="{% url 'department_add' %}">Department Add</a></li>
+                            <li><a class="dropdown-item" href="{% url 'department_list' %}">Department List</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" id="productDrop" onmouseover="openDropdown()" onmouseout="closeDropdown()">
+                        <a class="nav-link dropdown-toggle" href="{% url 'designation_add' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Designation
+                        </a>
+                        <ul class="dropdown-menu" id="dropdownMenu" onmouseover="keepDropdownOpen()" onmouseout="closeDropdown()">
+                            <li><a class="dropdown-item" href="{% url 'designation_add' %}">Designation Add</a></li>
+                            <li><a class="dropdown-item" href="{% url 'designation_list' %}">Designation List</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" id="productDrop" onmouseover="openDropdown()" onmouseout="closeDropdown()">
+                        <a class="nav-link dropdown-toggle" href="{% url 'employe_add' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Employe
+                        </a>
+                        <ul class="dropdown-menu" id="dropdownMenu" onmouseover="keepDropdownOpen()" onmouseout="closeDropdown()">
+                            <li><a class="dropdown-item" href="{% url 'employe_add' %}">Employe Add</a></li>
+                            <li><a class="dropdown-item" href="{% url 'employe_list' %}">Employe List</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- <div class="text-end">
+                        {% if user.is_authenticated %}
+                        <a href="logout.html"><button type="button" class="btn btn-warning">Logout</button></a> {% else %}
+                        <a href="login.html"><button type="button" class="btn btn-warning me-2">Login</button></a>
+                        <a href="signin.html"><button type="button" class="btn btn-warning">Sign-up</button></a> {% endif %}
+                    </div> -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center bg-info text-light py-3 mt-4">Department List</h2>
+
+        <div class="text-right mb-3">
+            <a class="btn btn-primary" href="{% url 'department_add' %}">Add Department</a>
+        </div>
+
+        <table class="table table-bordered" id="companyList">
+            <thead>
+                <tr>
+                    <th>Department Id</th>
+                    <th>Name</th>
+                    <th>Created On</th>
+                    <th>Updated On</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in dessign %}
+                <tr>
+                    <td>{{ i.dept_id }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.created_on }}</td>
+                    <td>{{ i.updated_on }}</td>
+                    <td>{{ i.enabled_status }}</td>
+                    <td class="action-buttons">
+                        <a class="btn btn-info btn-sm" href="{% url 'department_detail' i.pk %}">View</a>
+                        <a class="btn btn-warning btn-sm" href="{% url 'department_update' i.pk %}">Edit</a>
+                        <!-- <a class="btn btn-danger btn-sm" href="">Delete</a> -->
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12">
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the dropdown element
+            var productDropdown = document.getElementById("productDropdown");
+
+            // Add an event listener for mouseover to open the dropdown
+            productDropdown.addEventListener("mouseover", function() {
+                // Check if the dropdown is not already open
+                if (!productDropdown.classList.contains("show")) {
+                    // Use Bootstrap's dropdown method to manually show the dropdown
+                    var dropdown = new bootstrap.Dropdown(productDropdown);
+                    dropdown.show();
+                }
+            });
+
+            // Add an event listener for mouseout to close the dropdown
+            productDropdown.addEventListener("mouseout", function() {
+                // Use Bootstrap's dropdown method to manually hide the dropdown
+                var dropdown = new bootstrap.Dropdown(productDropdown);
+                dropdown.hide();
+            });
+        });
+    </script>
+
+    <script>
+        var dropdownMenu = document.getElementById("dropdownMenu");
+
+        function openDropdown() {
+            dropdownMenu.classList.add("show");
+        }
+
+        function keepDropdownOpen() {
+            clearTimeout(dropdownTimer);
+        }
+
+        function closeDropdown() {
+            dropdownTimer = setTimeout(function() {
+                dropdownMenu.classList.remove("show");
+            }, 1000);
+        }
+    </script>
+
+
+
+</body>
+
+</html>
